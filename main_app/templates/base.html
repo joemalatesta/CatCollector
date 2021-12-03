@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <link
+    rel="shortcut icon"
+    type="image/png"
+    href="{% static 'images/splash.svg' %}"
+  >
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+  <title>Cat Collector</title>
+  
+  {% block head %}
+  {% endblock %}
+</head>
+<body>
+  <header>
+    <div class="header-logo-container">
+      <a href="/">
+        <img 
+        src="{% static 'images/header-logo.svg' %}" 
+        alt="The Cat Collector Logo"
+        >
+      </a>
+    </div>
+    <h1>It's nice to see you {{user.username}}! </h1>
+    <nav>
+      <ul>
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'all_cats_index' %}">Everyone's Cats</a></li>
+          <li><a href="{% url 'cats_index' %}">All My Cats</a></li>
+          <li><a href="{% url 'toys_index' %}">All Toys</a></li>
+          <li><a href="{% url 'cats_create' %}">Add a Cat</a></li>
+          <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'logout' %}">Log out</a></li>
+        {% else %}
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'home' %}">Login</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>
